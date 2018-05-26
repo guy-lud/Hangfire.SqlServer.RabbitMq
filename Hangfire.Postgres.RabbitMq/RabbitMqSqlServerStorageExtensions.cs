@@ -1,16 +1,17 @@
 ﻿using System;
+using Hangfire.PostgreSql;
 using RabbitMQ.Client;
 
-namespace Hangfire.SqlServer.RabbitMQ
+namespace Hangfire.Postgres.RabbitMq
 {
-    public static class RabbitMqSqlServerStorageExtensions
+    public static class RabbitMqPostgreSqlStorageExtensions
     {
-        public static SqlServerStorage UseRabbitMq(this SqlServerStorage storage, Action<RabbitMqConnectionConfiguration> configureAction, params string[] queues)
+        public static PostgreSqlStorage UseRabbitMq(this PostgreSqlStorage storage, Action<RabbitMqConnectionConfiguration> configureAction, params string[] queues)
         {
-            if (storage == null) throw new ArgumentNullException("storage");
-            if (queues == null) throw new ArgumentNullException("queues");
-            if (queues.Length == 0) throw new ArgumentException("No queue(s) specified for RabbitMQ provider.", "queues");
-            if (configureAction == null) throw new ArgumentNullException("configureAction");
+            if (storage == null) throw new ArgumentNullException(nameof(storage));
+            if (queues == null) throw new ArgumentNullException(nameof(queues));
+            if (queues.Length == 0) throw new ArgumentException("No queue(s) specified for RabbitMQ provider.", nameof(queues));
+            if (configureAction == null) throw new ArgumentNullException(nameof(configureAction));
 
             var conf = new RabbitMqConnectionConfiguration();
             configureAction(conf);
@@ -31,9 +32,8 @@ namespace Hangfire.SqlServer.RabbitMQ
                 cf.VirtualHost = conf.VirtualHost;
             }
 
-            var provider = new RabbitMqJobQueueProvider(queues, cf, channel => 
-                channel.BasicQos(0,
-                    conf.PrefetchCount,
+            var provider = new RabbitMqJobQueueProvider(queues, cf, channel =>
+                channel.BasicQos(0, conf.PrefetchCount,
                     false // applied separately to each new consumer on the channel
                 ));
 

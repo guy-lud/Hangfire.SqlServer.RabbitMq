@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{15E186DF-8918-44F1-9285-9756EDAECA5D}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspecs", "nuspecs", "{5E68
 		nuspecs\Hangfire.SqlServer.RabbitMQ.nuspec = nuspecs\Hangfire.SqlServer.RabbitMQ.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.SqlServer.RabbitMq.Tests", "tests\Hangfire.SqlServer.RabbitMq.Tests\Hangfire.SqlServer.RabbitMq.Tests.csproj", "{2654D751-33D5-411D-A187-D057FED9CD25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Postgres.RabbitMq", "Hangfire.Postgres.RabbitMq\Hangfire.Postgres.RabbitMq.csproj", "{30F92B0E-449B-4447-A98F-A8BB1986B16C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.SqlServer.RabbitMq", "src\Hangfire.SqlServer.RabbitMq\Hangfire.SqlServer.RabbitMq.csproj", "{4CC51F69-0311-4485-B7DE-9ECAB3A1B5E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Postgres.RabbitMq.Tests", "Hangfire.Postgres.RabbitMq.Tests\Hangfire.Postgres.RabbitMq.Tests.csproj", "{BE71B93F-79C7-4210-86F1-804F7F3CDE6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,16 +26,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2654D751-33D5-411D-A187-D057FED9CD25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2654D751-33D5-411D-A187-D057FED9CD25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2654D751-33D5-411D-A187-D057FED9CD25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2654D751-33D5-411D-A187-D057FED9CD25}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CC51F69-0311-4485-B7DE-9ECAB3A1B5E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CC51F69-0311-4485-B7DE-9ECAB3A1B5E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CC51F69-0311-4485-B7DE-9ECAB3A1B5E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CC51F69-0311-4485-B7DE-9ECAB3A1B5E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F92B0E-449B-4447-A98F-A8BB1986B16C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F92B0E-449B-4447-A98F-A8BB1986B16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F92B0E-449B-4447-A98F-A8BB1986B16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F92B0E-449B-4447-A98F-A8BB1986B16C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE71B93F-79C7-4210-86F1-804F7F3CDE6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE71B93F-79C7-4210-86F1-804F7F3CDE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE71B93F-79C7-4210-86F1-804F7F3CDE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE71B93F-79C7-4210-86F1-804F7F3CDE6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F667E1D-ECB5-4216-B2B7-43559AB5505C}
 	EndGlobalSection
 EndGlobal

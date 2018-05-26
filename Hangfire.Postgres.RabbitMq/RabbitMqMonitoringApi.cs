@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Hangfire.PostgreSql;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
 using RabbitMQ.Client.MessagePatterns;
 
-namespace Hangfire.SqlServer.RabbitMQ
+namespace Hangfire.Postgres.RabbitMq
 {
     internal class RabbitMqMonitoringApi : IPersistentJobQueueMonitoringApi
     {
@@ -15,11 +15,8 @@ namespace Hangfire.SqlServer.RabbitMQ
 
         public RabbitMqMonitoringApi(ConnectionFactory factory, params string[] queues)
         {
-            if (queues == null) throw new ArgumentNullException("queues");
-            if (factory == null) throw new ArgumentNullException("factory");
-
-            _queues = queues;
-            _factory = factory;
+            _queues = queues ?? throw new ArgumentNullException(nameof(queues));
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
         public IEnumerable<string> GetQueues()
@@ -35,14 +32,13 @@ namespace Hangfire.SqlServer.RabbitMQ
         /// </remarks>
         public IEnumerable<int> GetEnqueuedJobIds(string queue, int @from, int perPage)
         {
-            using (var client = new RabbitMqJobQueue(new[] {queue}, _factory))
+            using (var client = new RabbitMqJobQueue(new[] { queue }, _factory))
             {
-                var consumer = new Subscription(client.Channel, queue, false);
+                var consumer = new Subscription(client.Channel, queue, true);
 
-                List<int> jobIds = new List<int>();
-                BasicDeliverEventArgs delivery;
+                var jobIds = new List<int>();
 
-                while (consumer.Next(1000, out delivery))
+                while (consumer.Next(1000, out var delivery))
                 {
                     var body = Encoding.UTF8.GetString(delivery.Body);
                     jobIds.Add(Convert.ToInt32(body));
@@ -63,13 +59,13 @@ namespace Hangfire.SqlServer.RabbitMQ
         /// </remarks>
         public EnqueuedAndFetchedCountDto GetEnqueuedAndFetchedCount(string queue)
         {
-            using (var client = new RabbitMqJobQueue(new[] {queue}, _factory, null))
+            using (var client = new RabbitMqJobQueue(new[] { queue }, _factory, null))
             {
                 var channel = client.Channel.QueueDeclare(queue, true, false, false, null);
 
                 return new EnqueuedAndFetchedCountDto
                 {
-                    EnqueuedCount = (int) channel.MessageCount
+                    EnqueuedCount = (int)channel.MessageCount
                 };
             }
         }
